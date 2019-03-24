@@ -1,6 +1,13 @@
 class TodoList {
   constructor(names = []) {
+    this.fetch = global.fetch;
     this.items = names.map(name => new TodoItem(name));
+  }
+
+  load() {
+    return this.fetch('http://localhost:3000/load').then(names => {
+      this.items = names.map(name => new TodoItem(name));
+    });
   }
 
   addItem(name) {

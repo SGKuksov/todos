@@ -1,6 +1,20 @@
 const { TodoList } = require('../js/app.js');
 const { expect } = require('chai');
 
+it('Можно загружать элементы с бекенда', async () => {
+  // подготовка
+  let list = new TodoList();
+  list.fetch = () => {
+    return Promise.resolve(['item1', 'item2']);
+  };
+
+  // действие
+  await list.load();
+
+  // проверка
+  expect(list.items.map(i => i.name)).to.eql(['item1', 'item2']);
+});
+
 it('Можно добавлять элементы', () => {
   // подготовка
   let list = new TodoList();
