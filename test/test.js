@@ -1,6 +1,22 @@
 const { TodoList } = require('../js/app.js');
 const { expect } = require('chai');
 
+it('Можно сохранять элементы на сервер', () => {
+  // подготовка
+  let latestArgs;
+  let list = new TodoList(['item1', 'item2']);
+  list.fetch = (...args) => {
+    latestArgs = args;
+    return Promise.resolve();
+  };
+
+  // действие
+  list.save();
+
+  // проверка
+  expect(latestArgs[1].body).to.eql(['item1', 'item2']);
+});
+
 it('Можно загружать элементы с бекенда', async () => {
   // подготовка
   let list = new TodoList();
@@ -26,7 +42,7 @@ it('Можно добавлять элементы', () => {
   expect(list.items.map(i => i.name)).to.include('test');
 });
 
-it('Можно чекать элементы оп индексу', () => {
+it('Можно чекать элементы по индексу', () => {
   // подготовка
   let list = new TodoList(['item1', 'item2']);
 

@@ -10,6 +10,17 @@ class TodoList {
     });
   }
 
+  save() {
+    let names = this.items
+      .filter(item => !item.isDone)
+      .map(item => item.name);
+
+      return this.fetch('http://localhost:3000/save', {
+        method: 'POST',
+        body: names
+      })
+  }
+
   addItem(name) {
     this.items.push(new TodoItem(name));
   }
