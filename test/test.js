@@ -1,14 +1,24 @@
-// import { TodoList, TodoItem } from '../js/app.js';
-const { TodoList } = require('../js/app.js')
+const { TodoList } = require('../js/app.js');
+const { expect } = require('chai');
 
-function todoListCanAddItem() {
+it('Можно добавлять элементы', () => {
+  // подготовка
   let list = new TodoList();
 
+  // действие
   list.addItem('test');
 
-  if (!list.items.some(item => item.name === 'test')) {
-    throw 'todoListCanAddItem - ERROR';
-  }
-}
+  // проверка
+  expect(list.items.map(i => i.name)).to.include('test');
+});
 
-todoListCanAddItem();
+it('Можно чекать элементы оп индексу', () => {
+  // подготовка
+  let list = new TodoList(['item1', 'item2']);
+
+  // действие
+  list.done(1);
+
+  // проверка
+  expect(!list.items[1].isDone).to.be.false;
+});

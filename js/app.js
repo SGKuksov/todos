@@ -27,7 +27,7 @@ class TodoItem {
   }
 }
 
-// export { TodoList, TodoItem };
-exports.module = {
-  TodoList, TodoItem
-}
+module.exports = {
+  TodoList,
+  TodoItem
+};
